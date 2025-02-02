@@ -39,3 +39,40 @@ inputUpload.addEventListener("change", async (evento) => {
         }
     }
 })
+
+const inputTags = document.getElementById("input-tags");
+const listaTags = document.getElementById("lista-tags");
+
+//Adicionar li na ul de Tags de acordo com input e depois limpa-lo
+inputTags.addEventListener("keypress", (evento) => {
+    if (evento.key === "Enter") {
+        evento.preventDefault();
+        const tagTexto = inputTags.value.trim();
+        if (tagTexto !== "") {
+            const tagNova = document.createElement("li");
+            tagNova.innerHTML = `<p>${tagTexto}</p> <img src="./img/close-black.svg" class="remove-tag">`;
+            listaTags.appendChild(tagNova);
+            inputTags.value = "";
+        }
+
+    }
+})
+
+//remover tag li da ul
+listaTags.addEventListener("click", (evento) => {
+    if(evento.target.classList.contains("remove-tag")){
+        const tagParaRemover = evento.target.parentElement;
+        listaTags.removeChild(tagParaRemover);
+    }
+})
+
+const tiposGatos = ["Gato Laranja", "Gato Adulto", "Gato Jovem", "Gato Preto", "Gato Branco"]
+
+async function verificaTagsDisponiveis(tagTexto) {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve(tagsDisponiveis.includes(tagTexto));
+        }, 1000)
+    })
+    
+}
